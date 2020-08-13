@@ -1,39 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_pergunta/Resposta.dart';
 
 //nosso metodo Principal
-main() => runApp(new PergutaApp());
+main() => runApp(new apresentar());
 
-//faz com que nossa classe extenda widget do statelessWidget
-class PergutaApp extends StatelessWidget {
+class apresentar extends StatelessWidget {
+  var perguntaSelecionada = 0;
   List<String> Perguntas = [
     "Qual a Sua Cor favorita",
     "Qual Seu Animal Favorito",
   ];
-//metodo que recebe os Widget
-  Widget build(BuildContext context) {
+  void responder() {
+    perguntaSelecionada++;
+  }
+
+  build(BuildContext context) {
     return MaterialApp(
-        //scafold fornece a estrutura do nosso Componente
-        home: Scaffold(
-            //barra que fica no top do Aplicativo
-            appBar: AppBar(
-              title: Text(
-                "Meu APP",
-                style: TextStyle(color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
-              backgroundColor: Colors.blue,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "My App",
+            style: TextStyle(),
+          ),
+        ),
+        body: Column(
+          children: <Widget>[
+            Text(Perguntas[perguntaSelecionada]),
+            RaisedButton(
+              child: Text("Pergunta 1"),
+              onPressed: responder,
             ),
-            //organizando em Colunas
-            body: Column(
-              //childrem é uma Lista de Widgets que ela Suporta
-              children: <Widget>[
-                Text(Perguntas[0]),
-                Text(Perguntas[1]),
-                //cchild pode receber apenas 1 Widget , que é o componente filho de RaisedButton()
-                RaisedButton(child: Text("Pergunta 1"), onPressed: () {}),
-                RaisedButton(child: Text("Pergunta 2"), onPressed: () {}),
-              ],
+            RaisedButton(
+              child: Text("Pergunta 2"),
+              onPressed: responder,
             ),
-            backgroundColor: Colors.white));
+            RaisedButton(
+              child: Text("Pergunta 3"),
+              onPressed: responder,
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
