@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_pergunta/Resposta.dart';
 
 //nosso metodo Principal
-main() => runApp(new apresentar());
+main() => runApp(new PerguntaApp());
 
-class apresentar extends StatelessWidget {
+//classe que gerencia o estado da classe principal para efetuar a atualização
+class PerguntaAppState extends State<PerguntaApp> {
   var perguntaSelecionada = 0;
-  List<String> Perguntas = [
-    "Qual a Sua Cor favorita",
-    "Qual Seu Animal Favorito",
-  ];
-  void responder() {
-    perguntaSelecionada++;
-  }
 
   build(BuildContext context) {
+    List<String> perguntas = [
+      "Qual a Sua Cor favorita",
+      "Qual Seu Animal Favorito 1",
+      "Qual Seu Animal Favorito 2",
+      "Qual Seu Animal Favorito 3",
+      "Qual Seu Animal Favorito 4",
+      "Qual Seu Animal Favorito 5",
+      "limite"
+    ];
+
+    void responder() {
+      setState(() {
+        if (perguntaSelecionada > 6) {
+          List<String> a = ["Limite"];
+          perguntaSelecionada = 7;
+          perguntas = a;
+        }
+        perguntaSelecionada++;
+      });
+    }
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -25,7 +39,7 @@ class apresentar extends StatelessWidget {
         ),
         body: Column(
           children: <Widget>[
-            Text(Perguntas[perguntaSelecionada]),
+            Text(perguntas[perguntaSelecionada]),
             RaisedButton(
               child: Text("Pergunta 1"),
               onPressed: responder,
@@ -37,10 +51,25 @@ class apresentar extends StatelessWidget {
             RaisedButton(
               child: Text("Pergunta 3"),
               onPressed: responder,
+            ),
+            RaisedButton(
+              child: Text("zerar"),
+              onPressed: () {
+                perguntas[perguntaSelecionada];
+
+                perguntaSelecionada = 0;
+              },
             )
           ],
         ),
       ),
     );
+  }
+}
+
+//para controlar o estado da classe precisa ter o StatefulWidget
+class PerguntaApp extends StatefulWidget {
+  PerguntaAppState createState() {
+    return PerguntaAppState();
   }
 }
